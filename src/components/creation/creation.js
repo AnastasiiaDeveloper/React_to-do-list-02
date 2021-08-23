@@ -1,28 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { thunkObjForData } from "./../../redux/actions/action";
 import "./creation.css";
 
-const CreatePost = () => {
+const CreatePost = ({ addItem }) => {
   const [post, setPost] = useState("");
   const [comment, setComment] = useState("");
 
-  const posts = useSelector((state) => state.posts.items);
-  const dispatch = useDispatch();
-
-  const actionForPost = (event) => {
+  const changedForPost = (event) => {
     setPost(event.target.value);
   };
-  const actionForComment = (event) => {
+  const changedForComment = (event) => {
     setComment(event.target.value);
-  };
-
-  const handler = (infoForPost, infoForComment) => {
-    dispatch(thunkObjForData(infoForPost, infoForComment));
-  };
-
-  const sendDataToRedux = () => {
-    handler(post, comment, posts);
   };
 
   return (
@@ -32,7 +19,7 @@ const CreatePost = () => {
         <input
           type="text"
           className="form-control"
-          onChange={actionForPost}
+          onChange={changedForPost}
           value={post}
         />
       </div>
@@ -41,11 +28,16 @@ const CreatePost = () => {
         <input
           type="text"
           className="form-control"
-          onChange={actionForComment}
+          onChange={changedForComment}
           value={comment}
         />
       </div>
-      <button className="btn-dark" onClick={() => sendDataToRedux()}>
+      <button
+        className="btn-dark"
+        onClick={() => {
+          addItem({ post, comment });
+        }}
+      >
         Create post
       </button>
     </div>

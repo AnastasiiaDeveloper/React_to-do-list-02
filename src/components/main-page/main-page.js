@@ -1,12 +1,10 @@
-import CreatePost from "./../creation/creation"
+import CreatePost from "./../creation/creation";
 
-
-
-const MainBlockInput = () => {
+const MainBlockInput = ({ addItem }) => {
   return (
     <div>
       <div className="mainAdd">
-        <CreatePost/>
+        <CreatePost addItem={addItem} />
       </div>
     </div>
   );
